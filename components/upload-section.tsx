@@ -7,6 +7,13 @@ import { insertPhoto } from "@/data/photos";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ImageIcon } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 
 export function UploadSection() {
   const router = useRouter();
@@ -51,14 +58,18 @@ export function UploadSection() {
       setUploading(false);
 
       if (errors === 0) {
-        setMessage(`${files.length} photo${files.length > 1 ? "s" : ""} uploaded!`);
+        setMessage(
+          `${files.length} photo${files.length > 1 ? "s" : ""} uploaded!`,
+        );
       } else {
-        setMessage(`Uploaded ${completed - errors} of ${files.length} photos. ${errors} failed.`);
+        setMessage(
+          `Uploaded ${completed - errors} of ${files.length} photos. ${errors} failed.`,
+        );
       }
 
       router.refresh();
     },
-    [router]
+    [router],
   );
 
   const onDragOver = useCallback((e: React.DragEvent) => {
@@ -82,22 +93,19 @@ export function UploadSection() {
         handleFiles(e.dataTransfer.files);
       }
     },
-    [handleFiles]
+    [handleFiles],
   );
 
   return (
-    <section id="upload" className="py-24 bg-white">
-      <div className="container mx-auto px-6 max-w-4xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Upload Your Photos
-          </h2>
-          <p className="text-gray-500">
-            Easily share the snaps you took during our wedding ceremony and
-            reception.
-          </p>
-        </div>
-
+    <Card className="w-full max-w-md max-h-1/2">
+      <CardHeader>
+        <CardTitle>Upload Your Photos</CardTitle>
+        <CardDescription>
+          Easily share the snaps you took during our wedding ceremony and
+          reception.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <div
           className={`drag-zone rounded-xl p-12 text-center bg-gray-50 flex flex-col items-center justify-center ${
             dragging ? "dragging" : ""
@@ -149,7 +157,7 @@ export function UploadSection() {
             {message}
           </p>
         )}
-      </div>
-    </section>
+      </CardContent>
+    </Card>
   );
 }

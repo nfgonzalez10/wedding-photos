@@ -13,13 +13,12 @@ export async function GallerySection() {
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
               The Guest Gallery
             </h2>
-            <p className="text-gray-500">
-              Moments captured by our loved ones.
-            </p>
+            <p className="text-gray-500">Moments captured by our loved ones.</p>
           </div>
           {photosWithUrls.length > 0 && (
             <span className="text-brand-purple font-semibold text-sm">
-              {photosWithUrls.length} photo{photosWithUrls.length !== 1 ? "s" : ""}
+              {photosWithUrls.length} photo
+              {photosWithUrls.length !== 1 ? "s" : ""}
             </span>
           )}
         </div>
@@ -49,6 +48,7 @@ export async function GallerySection() {
                   width={400}
                   height={400}
                   className="w-full h-full object-cover"
+                  unoptimized={photo.url.includes("127.0.0.1:54321")}
                 />
               </div>
             ))}

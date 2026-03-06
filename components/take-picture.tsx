@@ -3,10 +3,17 @@
 import { Button } from "@/components/ui/button";
 import { insertPhoto } from "@/data/photos";
 import { createBrowserClient } from "@/lib/supabase/client";
-import { CameraIcon, SwitchCameraIcon, RotateCcwIcon } from "lucide-react";
+import { CameraIcon, RotateCcwIcon, SwitchCameraIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 
 type CameraState = "idle" | "active" | "preview" | "uploading";
 
@@ -57,6 +64,7 @@ export function TakePictureSection() {
       const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
 
       const supabase = createBrowserClient();
+
       const { error } = await supabase.storage
         .from("wedding-photos")
         .upload(path, blob, { contentType: "image/jpeg" });
@@ -77,17 +85,14 @@ export function TakePictureSection() {
   }, [capturedImage, router]);
 
   return (
-    <section id="take-picture" className="py-24 bg-white">
-      <div className="container mx-auto px-6 max-w-4xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Take a Picture
-          </h2>
-          <p className="text-gray-500">
-            Capture the moment and share it with us by taking a photo right now!
-          </p>
-        </div>
-
+    <Card className="w-full max-w-md max-h-1/2">
+      <CardHeader>
+        <CardTitle>Take a Picture</CardTitle>
+        <CardDescription>
+          Capture the moment and share it with us by taking a photo right now!
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         {/* Idle state */}
         {cameraState === "idle" && (
           <div className="rounded-xl p-12 text-center bg-gray-50 flex flex-col items-center justify-center">
@@ -184,7 +189,7 @@ export function TakePictureSection() {
             {message}
           </p>
         )}
-      </div>
-    </section>
+      </CardContent>
+    </Card>
   );
 }

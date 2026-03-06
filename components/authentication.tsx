@@ -1,5 +1,6 @@
 import { AppContextDispatch } from "@/context/Context";
 import { SubmitEventHandler, useContext } from "react";
+import { toast } from "sonner";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -14,11 +15,13 @@ export function Authentication() {
         type: "SET_AUTHENTICATED",
         payload: { isAuthenticated: true },
       });
+    } else {
+      toast.error("Incorrect password. Please try again.");
     }
   };
 
   return (
-    <form className="w-full max-w-sm" onSubmit={handleSubmit}>
+    <form className="w-full max-w-sm px-4" onSubmit={handleSubmit}>
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"

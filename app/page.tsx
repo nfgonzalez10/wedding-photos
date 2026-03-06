@@ -14,9 +14,8 @@ export default function Home() {
     <AppShell>
       <Navigation />
       <HeroSection />
-      <div className="flex flex-row items-center justify-center my-12 w-full">
+      <div className="flex flex-col items-center justify-center my-12 w-full md:flex-row gap-2">
         <UploadSection />
-
         <TakePictureSection />
       </div>
       <GallerySection />
