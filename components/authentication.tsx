@@ -1,4 +1,5 @@
 import { AppContextDispatch } from "@/context/Context";
+import { isAuthenticated } from "@/data/authorization";
 import { SubmitEventHandler, useContext } from "react";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
@@ -6,18 +7,19 @@ import { Input } from "./ui/input";
 
 export function Authentication() {
   const dispatch = useContext(AppContextDispatch);
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
+
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    if (
-      e.currentTarget.password.value === process.env.NEXT_PUBLIC_AUTHORIZATION
-    ) {
-      dispatch?.({
+    const password = e.currentTarget.password.value;
+
+    if (await isAuthenticated(password)) {
+      return dispatch?.({
         type: "SET_AUTHENTICATED",
         payload: { isAuthenticated: true },
       });
-    } else {
-      toast.error("Incorrect password. Please try again.");
     }
+
+    toast.error("Incorrect password. Please try again.");
   };
 
   return (

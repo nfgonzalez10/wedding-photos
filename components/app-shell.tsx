@@ -9,7 +9,7 @@ import {
 } from "@/context/Context";
 import { ReactNode, useReducer } from "react";
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({ children }: Readonly<{ children: ReactNode }>) {
   const [state, dispatch] = useReducer(appReducer, appContextInitialState);
 
   return (
