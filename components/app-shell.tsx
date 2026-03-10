@@ -9,29 +9,45 @@ import {
 } from "@/context/Context";
 import { validateSession } from "@/data/authorization";
 import { clearSession, getSession, saveSession } from "@/lib/session";
-import { ReactNode, useEffect, useReducer } from "react";
+import { ReactNode, useEffect, useReducer, useState } from "react";
 
 export function AppShell({ children }: Readonly<{ children: ReactNode }>) {
   const [state, dispatch] = useReducer(appReducer, appContextInitialState);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const session = getSession();
-    if (!session) return;
+    async function restoreSession() {
+      const session = getSession();
+      if (!session) {
+        setIsLoading(false);
+        return;
+      }
 
-    validateSession(session.accessToken, session.refreshToken).then(
-      (result) => {
+      try {
+        const result = await validateSession(
+          session.accessToken,
+          session.refreshToken,
+        );
+
         if (!result.authenticated) {
           clearSession();
           return;
         }
+
         saveSession(result.accessToken!, result.refreshToken!);
         dispatch({
           type: "SET_AUTHENTICATED",
           payload: { isAuthenticated: true },
         });
-      },
-    );
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    restoreSession();
   }, []);
+
+  if (isLoading) return null;
 
   return (
     <AppContext value={state}>
