@@ -48,7 +48,7 @@ export async function GallerySection() {
                   width={400}
                   height={400}
                   className="w-full h-full object-cover"
-                  unoptimized={photo.url.includes("127.0.0.1:54321")}
+                  unoptimized={photo.url.includes("127.0.0.1:55321")}
                 />
               </div>
             ))}

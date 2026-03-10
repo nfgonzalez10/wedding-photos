@@ -1,5 +1,6 @@
 import { AppContextDispatch } from "@/context/Context";
 import { isAuthenticated } from "@/data/authorization";
+import { saveSession } from "@/lib/session";
 import { SubmitEventHandler, useContext } from "react";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
@@ -12,7 +13,10 @@ export function Authentication() {
     e.preventDefault();
     const password = e.currentTarget.password.value;
 
-    if (await isAuthenticated(password)) {
+    const result = await isAuthenticated(password);
+
+    if (result.authenticated) {
+      saveSession(result.accessToken!, result.refreshToken!);
       return dispatch?.({
         type: "SET_AUTHENTICATED",
         payload: { isAuthenticated: true },
