@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getPhotos } from "@/data/photos";
 import { ImageIcon } from "lucide-react";
+import Link from "next/link";
 
 export async function GallerySection() {
   const photosWithUrls = await getPhotos();
@@ -16,10 +17,13 @@ export async function GallerySection() {
             <p className="text-gray-500">Moments captured by our loved ones.</p>
           </div>
           {photosWithUrls.length > 0 && (
-            <span className="text-brand-purple font-semibold text-sm">
-              {photosWithUrls.length} photo
-              {photosWithUrls.length !== 1 ? "s" : ""}
-            </span>
+            <Link href="/photos" className="text-sm hover:underline">
+              <span className="text-brand-purple font-semibold text-sm">
+                {photosWithUrls.length} photo
+                {photosWithUrls.length !== 1 ? "s" : ""}
+                {" - "}See all
+              </span>
+            </Link>
           )}
         </div>
 

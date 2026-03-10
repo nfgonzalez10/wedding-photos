@@ -12,26 +12,34 @@ export function Navigation() {
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2">
           <span className="text-2xl font-extrabold tracking-tight text-brand-purple">
-            Munay{" "}
-            <span className="text-brand-deep-violet">Memories</span>
+            Munay <span className="text-brand-deep-violet">Memories</span>
           </span>
         </Link>
 
         <ul className="hidden md:flex space-x-8 text-sm font-semibold text-gray-600 uppercase tracking-widest">
           <li>
-            <a href="#gallery" className="hover:text-brand-purple transition-colors">
+            <Link
+              href="/photos"
+              className="hover:text-brand-purple transition-colors"
+            >
               Gallery
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#upload" className="hover:text-brand-purple transition-colors">
+            <Link
+              href="/#upload"
+              className="hover:text-brand-purple transition-colors"
+            >
               Upload
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#guestbook" className="hover:text-brand-purple transition-colors">
+            <Link
+              href="/#guestbook"
+              className="hover:text-brand-purple transition-colors"
+            >
               Guestbook
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -48,17 +56,29 @@ export function Navigation() {
         <div className="md:hidden glass-effect border-t border-gray-100 px-6 pb-4">
           <ul className="flex flex-col space-y-4 text-sm font-semibold text-gray-600 uppercase tracking-widest">
             <li>
-              <a href="#gallery" onClick={() => setOpen(false)} className="hover:text-brand-purple transition-colors">
+              <a
+                href="#gallery"
+                onClick={() => setOpen(false)}
+                className="hover:text-brand-purple transition-colors"
+              >
                 Gallery
               </a>
             </li>
             <li>
-              <a href="#upload" onClick={() => setOpen(false)} className="hover:text-brand-purple transition-colors">
+              <a
+                href="#upload"
+                onClick={() => setOpen(false)}
+                className="hover:text-brand-purple transition-colors"
+              >
                 Upload
               </a>
             </li>
             <li>
-              <a href="#guestbook" onClick={() => setOpen(false)} className="hover:text-brand-purple transition-colors">
+              <a
+                href="#guestbook"
+                onClick={() => setOpen(false)}
+                className="hover:text-brand-purple transition-colors"
+              >
                 Guestbook
               </a>
             </li>
